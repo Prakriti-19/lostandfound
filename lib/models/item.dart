@@ -5,5 +5,7 @@ class Profile_item{
   String p_name;
   String cat;
   String desc;
-  Profile_item({required this.p_name,required this.cat,required this.desc});
+  String username;
+  String userid;
+  Profile_item({required this.p_name,required this.cat,required this.desc,required this.userid,required this.username});
 }

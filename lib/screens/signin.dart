@@ -2,15 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:lostandfound/screens/register.dart';
 import 'package:lostandfound/extras/loading.dart';
 import 'homescreen.dart';
 
 
 class signIn extends StatefulWidget {
-  // final Function toggleView;
-  // signIn({required this.toggleView});
+
   @override
   _signInState createState() => _signInState();
 }
@@ -81,29 +79,24 @@ class _signInState extends State<signIn> {
                               ),
                               onPressed: ()
                               async {
-                                // if (_formKey.currentState!.validate()) {
-                                //   //setState(() => loading = true);
-                                //   dynamic result =
-                                //   await _auth.signInWithEmailAndPassword(email:
-                                //   email, password: password);
-                                //   if (result == null) {
-                                //     setState(() {
-                                //       error = 'please supply a valid email';
-                                //       loading = false;
-                                //     });
-                                //   } else
+                                if (_formKey.currentState!.validate()) {
+                                  //setState(() => loading = true);
+                                  dynamic result =
+                                  await _auth.signInWithEmailAndPassword(email:
+                                  email, password: password);
+                                  if (result == null) {
+                                    setState(() {
+                                      error = 'please supply a valid email';
+                                      loading = false;
+                                    });
+                                  } else{
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => HomeScreen()),
                                     );
-                               // }
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => HomeScreen()),
-                                // );
-                              }),
+
+                              }}}),
                         ),
                         Text(
                           error,

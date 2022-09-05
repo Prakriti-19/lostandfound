@@ -18,7 +18,7 @@ class _itempageState extends State<itempage> {
     Profile_item profile = widget.profile;
     return Scaffold(
       backgroundColor: Colors.blue[50],
-     body: Container(
+      body: Container(
         child: Column(
             children: <Widget>[
               SizedBox(height:50),

@@ -41,6 +41,8 @@ class _FoundState extends State<Found>{
   List<String> itemName= [];
   List<String> itemdesc=[];
   List<String> itemcat=[];
+  List<String> uname=[];
+  List<String> uid=[];
 
 
   Widget build(BuildContext context) {
@@ -67,6 +69,20 @@ class _FoundState extends State<Found>{
         if(profile.docs[index]['cat']=='Found')
           itemcat.add(profile.docs[index]['cat']);
         print(itemcat[index]);
+      });
+    });
+    _usersStream.forEach((profile){
+      profile.docs.asMap().forEach((index,data){
+        if(profile.docs[index]['cat']=='Found')
+         uname.add(profile.docs[index]['username']);
+        print(uname[index]);
+      });
+    });
+    _usersStream.forEach((profile){
+      profile.docs.asMap().forEach((index,data){
+        if(profile.docs[index]['cat']=='Found')
+          uid.add(profile.docs[index]['userid']);
+        print(uid[index]);
       });
     });
     final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
@@ -117,7 +133,7 @@ class _FoundState extends State<Found>{
                           return Text('snapshot does not have data');
                         }
                         else {
-                          final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i], cat: itemcat[i], desc:itemdesc[i] ),);
+                          final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i], username: uname[i], userid: uid[i]));
                           return AnimatedList(
                             key: _listKey,
                             initialItemCount: profile_item.length,

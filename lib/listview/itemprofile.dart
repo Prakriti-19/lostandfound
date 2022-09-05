@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lostandfound/models/item.dart';
-import 'package:lostandfound/screens/itemprofile.dart';
+
+import '../screens/itemview.dart';
 
 class profiletile extends StatefulWidget {
 

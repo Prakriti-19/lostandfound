@@ -115,6 +115,11 @@ class _RegisterState extends State<Register> {
                                       dynamic result =
                                       await _auth.registerWithEmailAndPassword(
                                           email, password);
+                                      await DatabaseService(uid: user!.uid).updateUserData(
+                                        _currentName ,
+                                        current_rollno,
+                                        pno,
+                                      );
                                       if (result == null) {
                                         setState(() {
                                           error = 'please supply a valid email';

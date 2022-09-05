@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lostandfound/screens/itemprofile.dart';
 import '../models/item.dart';
+import '../screens/itemview.dart';
 
 
 class profiletile extends StatefulWidget {
@@ -18,10 +18,10 @@ class _profiletileState extends State<profiletile> {
     Profile_item profile = widget.profile;
     String a;
     int index=widget.ind;
-    if(widget.profile.desc.length<55)
+    if(widget.profile.desc.length<75)
       a=widget.profile.desc;
     else
-      a=widget.profile.desc.substring(0,53)+'...';
+      a=widget.profile.desc.substring(0,73)+'...';
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 7,vertical: 10),
       child: Stack(children: <Widget>[
@@ -30,59 +30,42 @@ class _profiletileState extends State<profiletile> {
           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),
           child: Card(
             child: Container(
-              height: 75,
-              decoration: new BoxDecoration(
-                  border:  Border.all(
-                    color:Color.fromRGBO(12,65,96,1), //                   <--- border color
-                    width: 3.0,
-                  ),
-                  color: Colors.blue[50],
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Row(children: <Widget>[
-                SizedBox(
-                  width: 2,
-                ),
-                Container(
-                  width: 270,
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                      children:<Widget>[
-                        SizedBox(
-                          width: 9,
-                        ),
-                        Text(
-                          '  ${widget.profile.p_name.toUpperCase()} ',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
-                        ),
-                        SizedBox(
-                          height: 2.5,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(width: 4,),
-                            Container(
-                              width: 265,
-                              child: Text(
-                                ' ${a}',
-                                style: TextStyle(fontSize: 15,color: Colors.black38),
+              height: 180,
+              child: Column(
+                children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 100,
+                        decoration: new BoxDecoration(
+                            image: DecorationImage(image: AssetImage('logo.png'))),)),
+                              SizedBox(
+                                width: 9,
                               ),
-                            ),
-                          ],
-                        ),
-                      ]),
-                ),
-                Container(
-                  width: 50,
-                  child: IconButton(
-                    color:Color.fromRGBO(12,65,96,1),
-                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>itempage(profile: profile, index: index,)));},
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    icon: Icon(Icons.double_arrow_outlined),
+                              Text(
+                                '  ${widget.profile.p_name.toUpperCase()} ',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
+                              ),
+                              SizedBox(
+                                height: 0.5,
+                              ),
+            Text(
+              '  ${widget.profile.desc.toUpperCase()} ',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
+            ),
+
+                    Container(
+                      width: 50,
+                      child: IconButton(
+                        color:Color.fromRGBO(12,65,96,1),
+                        onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>itempage(profile: profile, index: index,)));},
+                        padding: EdgeInsets.symmetric(vertical: 0),
+                        icon: Icon(Icons.double_arrow_outlined),
+                      ),
+                    ),
+                  ],
                   ),
-                ),
-              ],
-              ),
+
             ),
           ),
         )]),);

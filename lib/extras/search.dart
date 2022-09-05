@@ -19,6 +19,8 @@ class _searchState extends State<search> {
   List<String> profileName= [];
   List<String> profilepno=[];
   List<String> profilroll=[];
+  List<String> uname=[];
+  List<String> uid=[];
 
   int c=0;
   Widget build(BuildContext context) {
@@ -53,7 +55,20 @@ class _searchState extends State<search> {
         }
       });
     });
-
+    _usersStream.forEach((profile){
+      profile.docs.asMap().forEach((index,data){
+        if ((profile.docs[index]['interests']).toString().trim()==(interests).toString().trim())
+          uname.add(profile.docs[index]['username']);
+        print(uname[index]);
+      });
+    });
+    _usersStream.forEach((profile){
+      profile.docs.asMap().forEach((index,data){
+        if ((profile.docs[index]['interests']).toString().trim()==(interests).toString().trim())
+          uid.add(profile.docs[index]['userid']);
+        print(uid[index]);
+      });
+    });
 
 
     return Scaffold(
@@ -102,7 +117,7 @@ class _searchState extends State<search> {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: profilroll[i],desc: profileName[i], cat:profilepno[i],),);
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: profilroll[i],desc: profileName[i], cat:profilepno[i], username: uname[i], userid: uid[i],),);
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {

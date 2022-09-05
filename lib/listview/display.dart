@@ -15,6 +15,8 @@ class p_display extends StatefulWidget {
 class _p_displayState extends State<p_display> {
   @override
   List<String> p_name=[];
+  List<String> uname=[];
+  List<String> uid=[];
   List<String> p_cat=[];
   List<String> p_desc=[];
 
@@ -28,7 +30,8 @@ class _p_displayState extends State<p_display> {
           p_name.add(product.docs[index]['name']);
           p_cat.add(product.docs[index]['cat']);
           p_desc.add(product.docs[index]['desc']);
-
+          uname.add(product.docs[index]['username']);
+          uid.add(product.docs[index]['userid']);
         }
       });});
 
@@ -75,7 +78,7 @@ class _p_displayState extends State<p_display> {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: p_name[i],cat:p_cat[i],desc: p_desc[i]));
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: p_name[i],cat:p_cat[i],desc: p_desc[i], username: uname[i], userid: uid[i]));
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {
