@@ -3,5 +3,7 @@
 A new Flutter project.
 
 ## Features
-User Autherization- Register,SignIn
+User Autherization- Register,SignIn.
+
 Firebase database is used in the backend
+
