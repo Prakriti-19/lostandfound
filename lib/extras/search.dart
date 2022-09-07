@@ -21,7 +21,7 @@ class _searchState extends State<search> {
   List<String> profilroll=[];
   List<String> uname=[];
   List<String> uid=[];
-
+  List<String> p_url=[];
   int c=0;
   Widget build(BuildContext context) {
     c=0;
@@ -69,7 +69,13 @@ class _searchState extends State<search> {
         print(uid[index]);
       });
     });
-
+    _usersStream.forEach((profile){
+      profile.docs.asMap().forEach((index,data){
+        if(profile.docs[index]['cat']=='Found')
+          p_url.add(profile.docs[index]['url']);
+        print(uid[index]);
+      });
+    });
 
     return Scaffold(
       appBar: new PreferredSize(
@@ -117,7 +123,7 @@ class _searchState extends State<search> {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: profilroll[i],desc: profileName[i], cat:profilepno[i], username: uname[i], userid: uid[i],),);
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: profilroll[i],desc: profileName[i], cat:profilepno[i]),);
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {

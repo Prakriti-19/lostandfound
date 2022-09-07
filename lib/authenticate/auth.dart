@@ -24,13 +24,13 @@ class AuthService {
       return null;
     }
   }
-  Future registerWithEmailAndPassword(String email, String password) async{
+  Future registerWithEmailAndPassword(String email, String password, String name, String roll, String pno) async{
     try{
       UserCredential result=await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user=result.user;
       FirebaseFirestore.instance.collection("users").doc(user?.uid).set({
         "uid": user?.uid,});
-      await DatabaseService(uid: user!.uid).updateUserData('newTeammate','----------','0000000000');
+      await DatabaseService(uid: user!.uid).updateUserData(name,roll,pno);
       return _userFormFirebaseUser(user);
     }
     catch(e){

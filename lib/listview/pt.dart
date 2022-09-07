@@ -18,44 +18,51 @@ class _profiletileState extends State<profiletile> {
     Profile_item profile = widget.profile;
     String a;
     int index=widget.ind;
-    if(widget.profile.desc.length<75)
+    if(widget.profile.desc.length<25)
       a=widget.profile.desc;
     else
-      a=widget.profile.desc.substring(0,73)+'...';
+      a=widget.profile.desc.substring(0,23)+'...';
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 7,vertical: 10),
       child: Stack(children: <Widget>[
         Material(
           elevation: 12,
-          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),
           child: Card(
             child: Container(
-              height: 180,
+              height: 230,
               child: Column(
                 children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Container(
-                        height: 100,
+                        height: 80,
                         decoration: new BoxDecoration(
-                            image: DecorationImage(image: AssetImage('logo.png'))),)),
+                            image: DecorationImage(image:AssetImage('images/logo.png'))),)),
                               SizedBox(
                                 width: 9,
                               ),
                               Text(
-                                '  ${widget.profile.p_name.toUpperCase()} ',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
+                                ' ${widget.profile.p_name.toUpperCase()} ',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17,color: Colors.black),
                               ),
                               SizedBox(
                                 height: 0.5,
                               ),
-            Text(
-              '  ${widget.profile.desc.toUpperCase()} ',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
+            Row(
+              children: [
+                SizedBox(width: 10),
+                Container(
+                  width: 310,
+                  child: Text(
+                    '${widget.profile.desc} ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13,color: Colors.black54),
+                  ),
+                ),
+              ],
             ),
 
                     Container(
-                      width: 50,
+                      width: 20,
                       child: IconButton(
                         color:Color.fromRGBO(12,65,96,1),
                         onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>itempage(profile: profile, index: index,)));},

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lostandfound/screens/userprofile.dart';
 import '../authenticate/auth.dart';
 import '../extras/search.dart';
+import '../screens/delete.dart';
 import 'itemadd.dart';
 
 
@@ -107,11 +108,11 @@ class _mDrawerState extends State<mDrawer> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.edit,
+                      Icons.delete_outline,
                     ),
-                    title: const Text('Edit Profile'),
+                    title: const Text('Delete Profile'),
                     onTap: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => delete(id: _currentUser.uid,)));
                     },
                   ),
                   ListTile(
@@ -120,7 +121,7 @@ class _mDrawerState extends State<mDrawer> {
                     ),
                     title: const Text('Add'),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: profilepno[0])));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: _currentUser.uid)));
                     },
                   ),
                   ListTile(

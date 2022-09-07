@@ -39,55 +39,22 @@ class _HomeScreenState extends State<HomeScreen>{
   int c = 0; bool loading=false;
   List<String> itemName= [];
   List<String> itemdesc=[];
- List<String> uname=[];
- List<String> uid=[];
+  List<String> p_url=[];
   List<String> itemcat=[];
 
 
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
     final User usser = auth.currentUser!;
-    final user = Provider.of<Usser?>(context);
-    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('product').snapshots();
-    _usersStream.forEach((profile){
-      profile.docs.asMap().forEach((index,data){
-        if(profile.docs[index]['cat']=='Lost')
-        itemName.add(profile.docs[index]['name']);
-        print(itemName[index]);
-      });
-    });
-    _usersStream.forEach((profile){
-      profile.docs.asMap().forEach((index,data){
-        if(profile.docs[index]['cat']=='Lost')
-        itemdesc.add(profile.docs[index]['desc']);
-        print(itemdesc[index]);
-      });
-    });
-    _usersStream.forEach((profile){
-      profile.docs.asMap().forEach((index,data){
-        if(profile.docs[index]['cat']=='Lost')
-        itemcat.add(profile.docs[index]['cat']);
-        print(itemcat[index]);
-      });
-    });
-    _usersStream.forEach((profile){
-      profile.docs.asMap().forEach((index,data){
-        if(profile.docs[index]['cat']=='Lost')
-          uname.add(profile.docs[index]['username']);
-        print(uname[index]);
-      });
-    });
-    _usersStream.forEach((profile){
-      profile.docs.asMap().forEach((index,data){
-        if(profile.docs[index]['cat']=='Lost')
-          uid.add(profile.docs[index]['userid']);
-        print(uid[index]);
-      });
-    });
-    final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-    Tween<Offset> _offset =Tween(begin : Offset (1, 0), end: Offset (0, 0));
+    // final user = Provider.of<Usser?>(context);
+    List<String> itemName= [];
+    List<String> itemdesc=[];
+    List<String> p_url=[];
+    List<String> itemcat=[];
+
 
     return loading? Loading():Scaffold(
+
         appBar: AppBar(
           toolbarHeight: 105,
           backgroundColor: Color.fromRGBO(92, 104, 211, .5),
@@ -110,39 +77,47 @@ class _HomeScreenState extends State<HomeScreen>{
                 Row(
                   children: [
                     Container(
-                      child: TextButton(onPressed: (){}, child: Text('LOST',style: TextStyle(color: Color.fromRGBO(12,65,96,1),fontSize: 20,fontWeight: FontWeight.bold),)),
+                      child: TextButton(onPressed: (){},
+                          child: Text('  LOST',style: TextStyle(color: Color.fromRGBO(12,65,96,1),fontSize: 20,fontWeight: FontWeight.bold),)),
                     ),
                     SizedBox(width:200 ,),
                     Container(
-                        child: TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Found()));}, child: Text('FOUND',style: TextStyle(color: Colors.black38,fontSize: 20,fontWeight: FontWeight.bold),)),
+                        child: TextButton(onPressed: (){   setState(() {
+
+                        });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Found()));}, child: Text('FOUND',style: TextStyle(color: Colors.black38,fontSize: 20,fontWeight: FontWeight.bold),)),
                     )
                   ],
                 ),
-                Container(
-                  height: 200,
-                  width: 350,
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream:
-                      FirebaseFirestore.instance.collection('product').snapshots(),
-                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        print("entered stream builder");
-                        final documentSnapshotList = snapshot.data!.docs;
-                        c = documentSnapshotList!.length;
-                        if (!snapshot.hasData) {
-                          return Text('snapshot does not have data');
-                        }
-                        else {
-                          final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i], username: uname[i], userid: uid[i]));
-                          return AnimatedList(
-                            key: _listKey,
-                            initialItemCount: profile_item.length,
-                            itemBuilder: (context, index,animation) {
-                              return SlideTransition(
-                                  position: animation.drive(_offset),
-                                  child:profiletile(profile: profile_item[index],ind:index));},
-                          );
+                SingleChildScrollView(
+                  child: Container(
+                    height: 490,
+                    width: 350,
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream:
+                        FirebaseFirestore.instance.collection('product').snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
+                          final documentSnapshotList = snapshot.data!.docs.where((element) => element['cat']=="Lost");
+                          documentSnapshotList.forEach((element) {itemcat.add(element['cat']);itemName.add(element['name']);
+                          itemdesc.add(element['desc']); });
 
-                        }}
+                          c = documentSnapshotList.length;
+                          print(itemName[0]);
+                          print(itemName[1]);
+                          if (!snapshot.hasData) {
+                            return Text('snapshot does not have data');
+                          }
+                          else{
+                            final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i]));
+                            return ListView.builder(
+                              itemCount: profile_item.length,
+                              itemBuilder: (context, index) {
+                                return profiletile(profile: profile_item[index],ind:index);},
+                            );
+                          }
+                        }
+                    ),
                   ),
                 ),
 

@@ -25,7 +25,6 @@ class _P_listState extends State<P_list> {
   String p_name = '';
   String cat = '';
   String desc = '';
-
   String? url;
   final _formKey = GlobalKey<FormState>();
   File? _image;
@@ -35,9 +34,18 @@ class _P_listState extends State<P_list> {
       ImagePicker picker = ImagePicker();
       XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
       if (image == null) return;
-      _image = File(image.path);
-      setState(()  {});
-      url=await uploadPic();
+      final imageTemp = File(image.path);
+      setState(() {
+        print("reached set state");
+        _image = File(image!.path);
+        // url=uploadPic(_image);
+        if(_image==null){
+          print("image is null");
+        }
+        else{
+          print("image is not null");
+        }
+      });
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -48,6 +56,8 @@ class _P_listState extends State<P_list> {
     UploadTask uploadTask= ref.putFile(_image!);
     uploadTask.whenComplete(() async{url = await ref.getDownloadURL();
     });
+    print("here we go");
+    print(url);
     if(url!=null)
       return url!;
     else{
@@ -175,12 +185,11 @@ class _P_listState extends State<P_list> {
                                     final CollectionReference productCollection = FirebaseFirestore.instance.collection('product');
                                     await productCollection.add({
                                       'url': url,
-                                      'username':name,
-                                      'userid':uid,
                                       'name': p_name,
                                       'cat': cat,
                                       'desc': desc,
-                                    }).then((value){Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));});
+                                    }).then((value)
+                                    {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));});
                                   }
                                 },
                                 padding: EdgeInsets.symmetric(vertical: 0),

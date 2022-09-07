@@ -114,7 +114,9 @@ class _RegisterState extends State<Register> {
                                     if (_formKey.currentState!.validate()) {
                                       dynamic result =
                                       await _auth.registerWithEmailAndPassword(
-                                          email, password);
+                                          email, password, _currentName ,
+                                        current_rollno,
+                                        pno,);
                                       await DatabaseService(uid: user!.uid).updateUserData(
                                         _currentName ,
                                         current_rollno,
