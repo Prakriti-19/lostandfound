@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -21,49 +22,30 @@ class P_list extends StatefulWidget {
 }
 
 class _P_listState extends State<P_list> {
-
+  @override
   String p_name = '';
   String cat = '';
   String desc = '';
   String? url;
   final _formKey = GlobalKey<FormState>();
   File? _image;
-  @override
-  Future getImage() async {
-    try {
-      ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
-      if (image == null) return;
-      final imageTemp = File(image.path);
+
+
+  void getImage() async {
+    ImagePicker picker = ImagePicker();
+    final image = await picker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50);
+    Reference ref = FirebaseStorage.instance.ref().child('profilepic.jpg');
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value){
+      print(value);
       setState(() {
-        print("reached set state");
-        _image = File(image!.path);
-        // url=uploadPic(_image);
-        if(_image==null){
-          print("image is null");
-        }
-        else{
-          print("image is not null");
-        }
+        url = value;
       });
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
+  });
+
   }
-  Future<String> uploadPic() async{
-    FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child("image1" +DateTime.now().toString());
-    UploadTask uploadTask= ref.putFile(_image!);
-    uploadTask.whenComplete(() async{url = await ref.getDownloadURL();
-    });
-    print("here we go");
-    print(url);
-    if(url!=null)
-      return url!;
-    else{
-      return url= await ref.getDownloadURL();
-    }
-  }
+
   addproducts() async{}
   final List<String> items = ['Lost', 'Found'];
   Widget build(BuildContext context) {
@@ -148,7 +130,7 @@ class _P_listState extends State<P_list> {
                                     child: Row(
                                       children: [
                                         FloatingActionButton(
-                                          onPressed: () { getImage();},
+                                          onPressed: () {getImage();},
                                           backgroundColor: Color.fromRGBO(12,65,96,1),
                                           child: Icon(Icons.add_a_photo_outlined),
                                         ),
@@ -185,6 +167,8 @@ class _P_listState extends State<P_list> {
                                     final CollectionReference productCollection = FirebaseFirestore.instance.collection('product');
                                     await productCollection.add({
                                       'url': url,
+                                      'uname':name,
+                                      'uid':uid,
                                       'name': p_name,
                                       'cat': cat,
                                       'desc': desc,

@@ -130,10 +130,10 @@ class _mDrawerState extends State<mDrawer> {
                     ),
                     title: const Text('Search'),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => search(interests: '',)),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => search(interests: '',)),
+                      // );
                     },
                   ),
                   ListTile(

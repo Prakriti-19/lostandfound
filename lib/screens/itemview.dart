@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lostandfound/extras/mail.dart';
 import 'package:lostandfound/models/item.dart';
 
 class itempage extends StatefulWidget {
@@ -10,38 +11,46 @@ class itempage extends StatefulWidget {
   @override
   State<itempage> createState() => _itempageState();
 }
-
+String a="";
 class _itempageState extends State<itempage> {
 
   @override
   Widget build(BuildContext context) {
     Profile_item profile = widget.profile;
+    if (profile.cat.toString().trim()=="Lost")
+      a="Lost By";
+      else
+        a="Found By";
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Color.fromRGBO(12,65,96,0.3),
       body: Container(
         child: Column(
             children: <Widget>[
-              SizedBox(height:50),
-              Text(profile.p_name,style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
+              SizedBox(height:200),
+              Text(profile.p_name,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
               SizedBox(height: 5),
               Row( mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Details: ',
-                    style: TextStyle(color: Colors.white,fontSize: 20,fontStyle: FontStyle.italic,),),
+                    style: TextStyle(color: Colors.black87,fontSize: 20,fontStyle: FontStyle.italic,),),
                   Text(
                     profile.desc,
-                    style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500,),),
+                    style: TextStyle(color: Colors.black87,fontSize: 20,fontWeight: FontWeight.w500,),),
                 ],
               ),
               SizedBox(height: 5),
               Row( mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    profile.cat,
-                    style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500,),),
+                    a+": ",
+                    style: TextStyle(color: Colors.black87,fontSize: 20,fontStyle: FontStyle.italic,),),
+                  Text(
+                    profile.username,
+                    style: TextStyle(color: Colors.black87,fontSize: 20,fontWeight: FontWeight.w500,),),
                 ],
               ),
+
               SizedBox(height: 40),
 
               Row( mainAxisAlignment: MainAxisAlignment.center,
@@ -52,17 +61,17 @@ class _itempageState extends State<itempage> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.edit,
+                          Icons.phone,
                           color: Color.fromRGBO(12,65,96,1),
                           size: 19.0,
                         ),
                         Text(
-                          'Edit',
+                          'Contact',
                           style: TextStyle(color: Color.fromRGBO(12,65,96,1), fontSize: 20.0),
                         ),
                       ],
                     ),
-                    onPressed: (){},
+                    onPressed: (){  },
                   ),
                 ],
               ),

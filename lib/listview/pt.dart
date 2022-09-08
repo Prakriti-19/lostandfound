@@ -26,6 +26,7 @@ class _profiletileState extends State<profiletile> {
       padding: EdgeInsets.symmetric(horizontal: 7,vertical: 10),
       child: Stack(children: <Widget>[
         Material(
+          color: Color.fromRGBO(92, 104, 211, .5),
           elevation: 12,
           child: Card(
             child: Container(
@@ -37,7 +38,7 @@ class _profiletileState extends State<profiletile> {
                       child: Container(
                         height: 80,
                         decoration: new BoxDecoration(
-                            image: DecorationImage(image:AssetImage('images/logo.png'))),)),
+                            image: DecorationImage(image:NetworkImage(profile.url))),)),
                               SizedBox(
                                 width: 9,
                               ),
@@ -52,10 +53,10 @@ class _profiletileState extends State<profiletile> {
               children: [
                 SizedBox(width: 10),
                 Container(
-                  width: 310,
+                  width: 318,
                   child: Text(
                     '${widget.profile.desc} ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13,color: Colors.black54),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,color: Colors.black54),
                   ),
                 ),
               ],

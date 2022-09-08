@@ -15,33 +15,18 @@ class delete extends StatefulWidget {
 
 class _deleteState extends State<delete> {
   @override
-  List<String> p_name=[];
-  List<String> uname=[];
-  List<String> uid=[];
-  List<String> p_cat=[];
+
   List<String> p_url=[];
-  List<String> p_desc=[];
+  List<String> itemName= [];
+  List<String> itemdesc=[];
+  List<String> itemcat=[];
+  List<String> uName= [];
+  List<String> uid=[];
 
   int c=0;
   Widget build(BuildContext context) {
     String id=widget.id;
     c=0;
-    print('task delete');
-    print(id);
-    final Stream<QuerySnapshot> _productStream = FirebaseFirestore.instance.collection('product').snapshots();
-    _productStream.forEach((product) {
-      product.docs.asMap().forEach((index, data) {
-        print(product.docs[index]['uid'].toString());
-        if(product.docs[index]['uid'].toString().trim()==id){
-          c=c+1;
-          p_name.add(product.docs[index]['name']);
-          p_cat.add(product.docs[index]['cat']);
-          p_desc.add(product.docs[index]['desc']);
-          p_url.add(product.docs[index]['url']);
-          uname.add(product.docs[index]['username']);
-          uid.add(product.docs[index]['userid']);
-        }
-      });});
     // DocumentReference documentReference = FirebaseFirestore.instance.collection('product').doc();
     // print('hello');
     // print(documentReference.id);
@@ -80,7 +65,9 @@ class _deleteState extends State<delete> {
           stream: FirebaseFirestore.instance.collection('product').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
-            final documentSnapshotList = snapshot.data!.docs.where((element) => element['uid']==id);
+            final documentSnapshotList = snapshot.data!.docs.where((element) => element['uid'].toString().trim()==id.toString().trim());
+            documentSnapshotList.forEach((element) {itemcat.add(element['cat']);uName.add(element['uname']);uid.add(element['uid']);itemName.add(element['name']);
+            itemdesc.add(element['desc']); });
             c = documentSnapshotList.length;
             if (!snapshot.hasData) {
               return Center(child: Text("snapshot has no data"));
@@ -90,7 +77,7 @@ class _deleteState extends State<delete> {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: p_name[i],cat:p_cat[i],desc: p_desc[i]));
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],));
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {
