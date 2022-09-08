@@ -147,7 +147,7 @@ class _P_listState extends State<P_list> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 30),
                                   child: DropdownButtonFormField(
-                                      dropdownColor: Color.fromRGBO(12,65,96,0.2),
+                                      dropdownColor: Color.fromRGBO(12,65,96,0.5),
                                       focusColor: Color.fromRGBO(12,65,96,0.5),
                                       items: items.map((items) {
                                         return DropdownMenuItem(
@@ -161,7 +161,7 @@ class _P_listState extends State<P_list> {
                                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
                                 child: SizedBox(
                                   child: DecoratedBox(
-                                    decoration: const BoxDecoration(color: Colors.white),
+                                    decoration: const BoxDecoration(color: Colors.white70),
                                     child: Row(
                                       children: [
                                         FloatingActionButton(

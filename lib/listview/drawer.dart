@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lostandfound/screens/userprofile.dart';
 import '../authenticate/auth.dart';
+import '../extras/search.dart';
 import '../screens/delete.dart';
 import 'itemadd.dart';
 
@@ -129,10 +130,10 @@ class _mDrawerState extends State<mDrawer> {
                     ),
                     title: const Text('Search'),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => search(interests: '',)),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => search()),
+                      );
                     },
                   ),
                   ListTile(

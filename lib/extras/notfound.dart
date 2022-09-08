@@ -19,17 +19,17 @@ class _FlashState extends State<Flash> {
                 width: 400,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/Flash.png"),
+                      image: AssetImage("images/retry.png"),
                       alignment: Alignment.topCenter
                   ),
                 ),
               ),
               Center(
-                  child: Text('SORRY',style: TextStyle(color: Colors.black,fontSize: 40,fontWeight: FontWeight.w500),)
+                  child: Text('SORRY',style: TextStyle(color: Color.fromRGBO(12,65,96,.9),fontSize: 40,fontWeight: FontWeight.w500),)
               ),
               SizedBox(height: 7,),
               Center(
-                  child: Text('No match found.',style: TextStyle(color: Colors.black26,fontSize: 16),)
+                  child: Text('No match found.',style: TextStyle(color: Color.fromRGBO(12,65,96,.7),fontSize: 16),)
               ),
 
             ]

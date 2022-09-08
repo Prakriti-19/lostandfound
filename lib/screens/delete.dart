@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../extras/flash.dart';
+import '../extras/notfound.dart';
 import '../listview/deletetile.dart';
 import '../models/item.dart';
 
@@ -30,10 +31,9 @@ class _deleteState extends State<delete> {
     c=0;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(92, 104, 211, .5),
       appBar: new PreferredSize(
         child: new Container(
-          color: Color.fromRGBO(12,65,96,1),
+          color: Color.fromRGBO(92, 104, 211, .5),
           padding: new EdgeInsets.only(
               top: MediaQuery.of(context).padding.top
           ),
