@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/item.dart';
-import '../screens/itemview.dart';
 
 
 class deletetile extends StatefulWidget {
@@ -21,7 +19,7 @@ class _deletetileState extends State< deletetile> {
   Widget build(BuildContext context) {
     final _db=FirebaseFirestore.instance;
     Profile_item profile = widget.profile;
-   // String id=widget.id;
+       
     int index=widget.ind;
     String a;
     if(widget.profile.desc.length<75)
@@ -60,15 +58,10 @@ class _deletetileState extends State< deletetile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black54),
                   ),
 
-                  Container(
-                    width: 50,
-                    child: IconButton(
-                      color:Color.fromRGBO(12,65,96,1),
-                      onPressed: ()async{ await _db.collection('product').doc().delete();},
-                      padding: EdgeInsets.symmetric(vertical: 0),
-                      icon: Icon(Icons.delete),
-                    ),
-                  ),
+                RaisedButton(onPressed: (){FirebaseFirestore.instance
+        .collection('product')
+        .doc(profile.pid)
+        .update({'color': Colors.grey});})
                 ],
               ),
 

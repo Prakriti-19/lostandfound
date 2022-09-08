@@ -1,15 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lostandfound/screens/homescreen.dart';
-import 'package:provider/provider.dart';
-import '../../models/user.dart';
-import '../authenticate/auth.dart';
 
 
 class P_list extends StatefulWidget {
@@ -26,22 +20,49 @@ class _P_listState extends State<P_list> {
   String p_name = '';
   String cat = '';
   String desc = '';
-  String? url;
+  String url='';
   final _formKey = GlobalKey<FormState>();
   File? _image;
 
-
+  uploadPic() async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child("image1" + DateTime.now().toString());
+    if(_image !=null){
+      UploadTask uploadTask = ref.putFile(_image!);
+      await uploadTask.whenComplete(() {
+        url = ref.getDownloadURL() as String;
+      }).catchError((onError) {
+        print(onError);
+      });}
+    else{
+      print("image is null");
+    }
+  }
   void getImage() async {
+    String name = widget.name;
+    String uid=widget.uid;
     ImagePicker picker = ImagePicker();
     final image = await picker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
-    Reference ref = FirebaseStorage.instance.ref().child('profilepic.jpg');
+    Reference ref = FirebaseStorage.instance.ref().child('${p_name}.jpg');
     await ref.putFile(File(image!.path));
     ref.getDownloadURL().then((value){
-      print(value);
       setState(() {
         url = value;
       });
+
+      final CollectionReference productCollection = FirebaseFirestore.instance.collection('product');
+      print("hello");  print(productCollection.id);
+       productCollection.add({
+         'pid': productCollection.id,
+        'url': url,
+         'uid':uid,
+        'uname':name,
+        'name': p_name,
+        'cat': cat,
+        'desc': desc,
+      });
+      uploadPic();
   });
 
   }
@@ -51,10 +72,11 @@ class _P_listState extends State<P_list> {
   Widget build(BuildContext context) {
     String name = widget.name;
     String uid = widget.uid;
-    final user = Provider.of<Usser?>(context);
     return Scaffold(
-        appBar: new PreferredSize(
+        appBar:
+        new PreferredSize(
           child: new Container(
+        color: Color.fromRGBO(12,65,96,1),
             padding:
             new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: new Padding(
@@ -92,7 +114,7 @@ class _P_listState extends State<P_list> {
                               ),
                               TextFormField(
                                 validator: (val) => val!.isEmpty
-                                    ? 'please enter your product name'
+                                    ? 'please enter item name'
                                     : null,
                                 onChanged: (val) => setState(() => p_name = val),
                               ),
@@ -102,7 +124,7 @@ class _P_listState extends State<P_list> {
                               ),
                               TextFormField(
                                 validator: (val) => val!.isEmpty
-                                    ? 'please enter your product description'
+                                    ? 'please enter item description'
                                     : null,
                                 onChanged: (val) => setState(() => desc = val),
                               ),
@@ -113,7 +135,7 @@ class _P_listState extends State<P_list> {
                                       vertical: 5, horizontal: 30),
                                   child: DropdownButtonFormField(
                                       dropdownColor: Colors.orange[50],
-                                      focusColor: Color.fromRGBO(12,65,96,1),
+                                      focusColor: Color.fromRGBO(12,65,96,0.2),
                                       items: items.map((items) {
                                         return DropdownMenuItem(
                                             child: Text('${items}'), value: items);
@@ -126,7 +148,7 @@ class _P_listState extends State<P_list> {
                                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
                                 child: SizedBox(
                                   child: DecoratedBox(
-                                    decoration: const BoxDecoration(color: Colors.blue),
+                                    decoration: const BoxDecoration(color: Color.fromRGBO(12,65,96,1),),
                                     child: Row(
                                       children: [
                                         FloatingActionButton(
@@ -141,7 +163,7 @@ class _P_listState extends State<P_list> {
                                 ),
                               ),
                               RaisedButton(
-                                color: Colors.white70,
+                                color:  Color.fromRGBO(92, 104, 211, .5),
                                 highlightElevation: 0,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -150,10 +172,11 @@ class _P_listState extends State<P_list> {
                                         width: 150,
                                         height: 55,
                                         decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(18)),
                                          color: Color.fromRGBO(12,65,96,1)),
                                         child: Center(
                                           child: Text(
-                                            'Add to Sell',
+                                            'Add',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20.0),
@@ -162,18 +185,8 @@ class _P_listState extends State<P_list> {
                                       )
                                     ]),
                                 onPressed: ()  async {
-
                                   if (_formKey.currentState!.validate() ) {
-                                    final CollectionReference productCollection = FirebaseFirestore.instance.collection('product');
-                                    await productCollection.add({
-                                      'url': url,
-                                      'uname':name,
-                                      'uid':uid,
-                                      'name': p_name,
-                                      'cat': cat,
-                                      'desc': desc,
-                                    }).then((value)
-                                    {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));});
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                   }
                                 },
                                 padding: EdgeInsets.symmetric(vertical: 0),

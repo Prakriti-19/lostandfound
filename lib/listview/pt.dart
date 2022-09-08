@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/item.dart';
-import '../screens/itemview.dart';
 
 
 class profiletile extends StatefulWidget {
@@ -30,13 +29,14 @@ class _profiletileState extends State<profiletile> {
           elevation: 12,
           child: Card(
             child: Container(
-              height: 230,
+              height: 235,
               child: Column(
                 children: [
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Container(
-                        height: 80,
+                        height: 160,
+                        width: 280,
                         decoration: new BoxDecoration(
                             image: DecorationImage(image:NetworkImage(profile.url))),)),
                               SizedBox(
@@ -62,15 +62,14 @@ class _profiletileState extends State<profiletile> {
               ],
             ),
 
-                    Container(
-                      width: 20,
-                      child: IconButton(
-                        color:Color.fromRGBO(12,65,96,1),
-                        onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>itempage(profile: profile, index: index,)));},
-                        padding: EdgeInsets.symmetric(vertical: 0),
-                        icon: Icon(Icons.double_arrow_outlined),
-                      ),
-                    ),
+                    // Container(
+                    //   decoration:  new BoxDecoration(
+                    //     color: profile.color,
+                    //     borderRadius: BorderRadius.all(Radius.circular(76)),
+                    //   ),
+                    //   width: 20,
+                    //  height: 20,
+                    // ),
                   ],
                   ),
 

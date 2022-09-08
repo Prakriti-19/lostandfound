@@ -1,4 +1,4 @@
-import 'package:lostandfound/models/profile.dart';
+import 'dart:ui';
 
 class Profile_item{
 
@@ -8,5 +8,6 @@ class Profile_item{
   String username;
   String userid;
   String url;
-  Profile_item({required this.p_name,required this.cat,required this.desc,required this.userid,required this.username,required this.url});
+  String pid;
+  Profile_item({required this.p_name,required this.cat,required this.desc,required this.userid,required this.username,required this.url,required this.pid});
 }

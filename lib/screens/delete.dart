@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lostandfound/listview/pt.dart';
 import '../extras/flash.dart';
 import '../listview/deletetile.dart';
 import '../models/item.dart';
@@ -16,20 +15,19 @@ class delete extends StatefulWidget {
 class _deleteState extends State<delete> {
   @override
 
-  List<String> p_url=[];
-  List<String> itemName= [];
-  List<String> itemdesc=[];
-  List<String> itemcat=[];
-  List<String> uName= [];
-  List<String> uid=[];
-
   int c=0;
   Widget build(BuildContext context) {
+
+    List<String> p_url=[];
+    List<String> itemName= [];
+    List<String> itemdesc=[];
+    List<String> itemcat=[];
+    List<String> uName= [];
+    List<String> uid=[];
+    List<String> pid=[];
+    List<Color> color=[];
     String id=widget.id;
     c=0;
-    // DocumentReference documentReference = FirebaseFirestore.instance.collection('product').doc();
-    // print('hello');
-    // print(documentReference.id);
 
     return Scaffold(
       backgroundColor: Colors.blue[50],
@@ -46,7 +44,7 @@ class _deleteState extends State<delete> {
                 bottom: 20.0
             ),
             child: new Text(
-              '${id.toUpperCase()}',
+              'Your Enlistments',
               style: new TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500,
@@ -65,26 +63,22 @@ class _deleteState extends State<delete> {
           stream: FirebaseFirestore.instance.collection('product').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
-            final documentSnapshotList = snapshot.data!.docs.where((element) => element['uid'].toString().trim()==id.toString().trim());
-            documentSnapshotList.forEach((element) {itemcat.add(element['cat']);uName.add(element['uname']);uid.add(element['uid']);itemName.add(element['name']);
+            final documentSnapshotList = snapshot.data!.docs.where((element) => element['uid']==id.toString());
+            documentSnapshotList.forEach((element) {itemcat.add(element['cat'].toString());uName.add(element['uname']);uid.add(element['uid']);pid.add(element['pid']);p_url.add(element['url'].toString());itemName.add(element['name']);
             itemdesc.add(element['desc']); });
             c = documentSnapshotList.length;
-            if (!snapshot.hasData) {
-              return Center(child: Text("snapshot has no data"));
-            }
-            else {
               if (c == 0) {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],));
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],pid: pid[i],));
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {
                     return deletetile(profile: profile[index],ind:index);},
                 );
               }
-            }}),
+            }),
     );
   }
 }
