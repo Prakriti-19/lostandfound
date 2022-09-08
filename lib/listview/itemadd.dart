@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lostandfound/screens/homescreen.dart';
@@ -76,7 +77,7 @@ class _P_listState extends State<P_list> {
         appBar:
         new PreferredSize(
           child: new Container(
-        color: Color.fromRGBO(12,65,96,1),
+        color: Color.fromRGBO(92, 104, 211, .5),
             padding:
             new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: new Padding(
@@ -100,7 +101,9 @@ class _P_listState extends State<P_list> {
                     Container(
                         child: SingleChildScrollView(
                             reverse: true,
-                            child: Column(children: [_image != null
+                            child: Column(children: [
+                              SizedBox(height: 30,),
+                              _image != null
                                 ? ClipRRect(
                               borderRadius: BorderRadius.circular(50.0),
                               child: Image.file(_image!, width: 150, height: 150, fit: BoxFit.cover),
@@ -108,25 +111,35 @@ class _P_listState extends State<P_list> {
                                 : ClipRRect(borderRadius: BorderRadius.circular(50.0),
                                 child: FlutterLogo(size: 150)
                             ),
-                              SizedBox(height: 30.0),
+                              SizedBox(height: 10.0),
                               Padding(
                                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                               ),
-                              TextFormField(
-                                validator: (val) => val!.isEmpty
-                                    ? 'please enter item name'
-                                    : null,
-                                onChanged: (val) => setState(() => p_name = val),
+                              Padding(
+                                padding:  EdgeInsets.only(left: 30.0, right: 30.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Name'),
+                                  validator: (val) => val!.isEmpty
+                                      ? 'please enter item name'
+                                      : null,
+                                  onChanged: (val) => setState(() => p_name = val),
+                                ),
                               ),
-                              SizedBox(height: 20.0),
+                              SizedBox(height: 10.0),
                               Padding(
                                 padding: EdgeInsets.only(left: 20.0, right: 20.0),
                               ),
-                              TextFormField(
-                                validator: (val) => val!.isEmpty
-                                    ? 'please enter item description'
-                                    : null,
-                                onChanged: (val) => setState(() => desc = val),
+                              Padding(
+                                padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Details'),
+                                  validator: (val) => val!.isEmpty
+                                      ? 'please enter item description'
+                                      : null,
+                                  onChanged: (val) => setState(() => desc = val),
+                                ),
                               ),
                               SizedBox(height: 20.0),
                               Container(
@@ -134,8 +147,8 @@ class _P_listState extends State<P_list> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 30),
                                   child: DropdownButtonFormField(
-                                      dropdownColor: Colors.orange[50],
-                                      focusColor: Color.fromRGBO(12,65,96,0.2),
+                                      dropdownColor: Color.fromRGBO(12,65,96,0.2),
+                                      focusColor: Color.fromRGBO(12,65,96,0.5),
                                       items: items.map((items) {
                                         return DropdownMenuItem(
                                             child: Text('${items}'), value: items);
@@ -148,15 +161,15 @@ class _P_listState extends State<P_list> {
                                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
                                 child: SizedBox(
                                   child: DecoratedBox(
-                                    decoration: const BoxDecoration(color: Color.fromRGBO(12,65,96,1),),
+                                    decoration: const BoxDecoration(color: Colors.white),
                                     child: Row(
                                       children: [
                                         FloatingActionButton(
                                           onPressed: () {getImage();},
-                                          backgroundColor: Color.fromRGBO(12,65,96,1),
+                                          backgroundColor: Color.fromRGBO(92, 104, 211, .5),
                                           child: Icon(Icons.add_a_photo_outlined),
                                         ),
-                                        Text(' Add item image'),
+                                        Text('     Add item image',style: TextStyle(color: Colors.black87,fontSize: 18,fontWeight: FontWeight.w500),),
                                       ],
                                     ),
                                   ),
@@ -173,7 +186,7 @@ class _P_listState extends State<P_list> {
                                         height: 55,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(Radius.circular(18)),
-                                         color: Color.fromRGBO(12,65,96,1)),
+                                         color: Color.fromRGBO(92, 104, 211, .5),),
                                         child: Center(
                                           child: Text(
                                             'Add',

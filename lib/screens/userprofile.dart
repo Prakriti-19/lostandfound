@@ -20,23 +20,28 @@ class _UserprofState extends State<Userprof> {
     String rollno=widget.rollno;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(33, 57, 89, 1),
+     // backgroundColor: Color.fromRGBO(33, 57, 89, 1),
       body: Container(
           width: double.infinity,
           child: Container(
             child: Column(
                 children: <Widget>[
-                  SizedBox(height:50),
-                  Text('${name}',style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
+                  SizedBox(height:60),
+                  Container(
+                    height: 300,
+                    decoration: new BoxDecoration( image: DecorationImage(image:AssetImage('images/profile.png'))),
+                  ),
+                  SizedBox(height:100),
+                  Text('${name}',style: TextStyle(color: Color.fromRGBO(12,65,96,1),fontSize: 25,fontWeight: FontWeight.bold),),
                   SizedBox(height: 5),
                   Row( mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Contact No.: ',
-                        style: TextStyle(color: Colors.white,fontSize: 20,fontStyle: FontStyle.italic,),),
+                        style: TextStyle(color: Color.fromRGBO(12,65,96,.7),fontSize: 20,fontStyle: FontStyle.italic,),),
                       Text(
                         ' ${pno}',
-                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500,),),
+                        style: TextStyle(color: Color.fromRGBO(12,65,96,.7),fontSize: 20,fontWeight: FontWeight.w500,),),
                     ],
                   ),
                   SizedBox(height: 5),
@@ -44,34 +49,10 @@ class _UserprofState extends State<Userprof> {
                     children: [
                       Text(
                         'Interests: ',
-                        style: TextStyle(color: Colors.white,fontSize: 20,fontStyle: FontStyle.italic,),),
+                        style: TextStyle(color: Color.fromRGBO(12,65,96,.7),fontSize: 20,fontStyle: FontStyle.italic,),),
                       Text(
                         ' ${rollno}',
-                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500,),),
-                    ],
-                  ),
-                  SizedBox(height: 40),
-
-                  Row( mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        color:  Colors.white,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: Colors.indigo[900],
-                              size: 19.0,
-                            ),
-                            Text(
-                              'Edit',
-                              style: TextStyle(color: Colors.indigo[900], fontSize: 20.0),
-                            ),
-                          ],
-                        ),
-                        onPressed: (){},
-                      ),
+                        style: TextStyle(color: Color.fromRGBO(12,65,96,.7),fontSize: 20,fontWeight: FontWeight.w500,),),
                     ],
                   ),
 

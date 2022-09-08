@@ -30,7 +30,7 @@ class _deleteState extends State<delete> {
     c=0;
 
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Color.fromRGBO(92, 104, 211, .5),
       appBar: new PreferredSize(
         child: new Container(
           color: Color.fromRGBO(12,65,96,1),

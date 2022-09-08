@@ -87,7 +87,7 @@ class _mDrawerState extends State<mDrawer> {
                   const DrawerHeader(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("images/welcome.png"),
+                        image: AssetImage('images/welcome.png'),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -107,9 +107,9 @@ class _mDrawerState extends State<mDrawer> {
                   ),
                   ListTile(
                     leading: Icon(
-                      Icons.delete_outline,
+                      Icons.history,
                     ),
-                    title: const Text('Delete Profile'),
+                    title: const Text('History'),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => delete(id: _currentUser.uid,)));
                     },
@@ -118,7 +118,7 @@ class _mDrawerState extends State<mDrawer> {
                     leading: Icon(
                       Icons.add_circle_rounded,
                     ),
-                    title: const Text('Add'),
+                    title: const Text('Add item'),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: _currentUser.uid)));
                     },

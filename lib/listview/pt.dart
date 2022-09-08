@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/item.dart';
 
@@ -29,13 +30,14 @@ class _profiletileState extends State<profiletile> {
           elevation: 12,
           child: Card(
             child: Container(
+              decoration: new BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(18))),
               height: 235,
               child: Column(
                 children: [
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Container(
-                        height: 160,
+                        height: 150,
                         width: 280,
                         decoration: new BoxDecoration(
                             image: DecorationImage(image:NetworkImage(profile.url))),)),
