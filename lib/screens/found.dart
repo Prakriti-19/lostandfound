@@ -8,7 +8,7 @@ import 'package:lostandfound/models/user.dart';
 import 'package:lostandfound/screens/homescreen.dart';
 import 'package:provider/provider.dart';
 import 'package:lostandfound/extras/loading.dart';
-import '../listview/drawer.dart';
+import 'drawer.dart';
 import '../listview/pt.dart';
 import '../models/item.dart';
 class Found extends StatefulWidget {
@@ -37,13 +37,7 @@ class Customshape extends CustomClipper<Path>{
 
 class _FoundState extends State<Found>{
   @override
-
   int c = 0; bool loading=false;
-  List<String> itemName= [];
-  List<String> itemdesc=[];
-  List<String> itemcat=[];
-  List<String> uid=[];
-  List<Color> color=[];
 
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -56,6 +50,8 @@ class _FoundState extends State<Found>{
     List<String> uName= [];
     List<String> pid=[];
     List<String> id=[];
+    List<String> roll=[];
+    List<String> uno=[];
 c=0;
     return loading? Loading():Scaffold(
         appBar: AppBar(
@@ -98,15 +94,14 @@ c=0;
                         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                           if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
                           final documentSnapshotList = snapshot.data!.docs.where((element) => element['cat']=="Found");
-                          documentSnapshotList.forEach((element) {itemcat.add(element['cat']);pid.add(element['pid']);uName.add(element['uname']);p_url.add(element['url']);id.add(element['uid']);itemName.add(element['name']);
+                          documentSnapshotList.forEach((element) {itemcat.add(element['cat']);pid.add(element['pid']);roll.add(element['roll']);uno.add(element['uno']);uName.add(element['uname']);p_url.add(element['url']);id.add(element['uid']);itemName.add(element['name']);
                           itemdesc.add(element['desc']); });
-
                           c = documentSnapshotList.length;
                           if (!snapshot.hasData) {
                             return Text('snapshot does not have data');
                           }
                           else{
-                            final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i] ,userid: id[i], username:uName[i], url: p_url[i], pid: pid[i],));
+                            final profile_item = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i] ,userid: id[i], username:uName[i], url: p_url[i], pid: pid[i], uno: uno[i], roll: roll[i],));
                             return ListView.builder(
                               itemCount: profile_item.length,
                               itemBuilder: (context, index) {

@@ -31,7 +31,7 @@ class _profiletileState extends State<profiletile> {
           child: Card(
             child: Container(
               decoration: new BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(18))),
-              height: 235,
+              height: 240,
               child: Column(
                 children: [
                     Padding(
@@ -58,25 +58,51 @@ class _profiletileState extends State<profiletile> {
                   width: 318,
                   child: Text(
                     '${widget.profile.desc} ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,color: Colors.black54),
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,color: Colors.black54),
                   ),
                 ),
               ],
             ),
-
-                    // Container(
-                    //   decoration:  new BoxDecoration(
-                    //     color: profile.color,
-                    //     borderRadius: BorderRadius.all(Radius.circular(76)),
-                    //   ),
-                    //   width: 20,
-                    //  height: 20,
-                    // ),
-                  ],
+                  SizedBox(
+                    height: 5,
                   ),
+                  Row(
+                    children: [
+                      SizedBox(width: 10),
+                      Text(
+                          'Roll no: ',
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                        ),
+                      SizedBox(width: 3),
+                        Text(
+                          '${widget.profile.roll} ',
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                        ),
 
+                    ],
+
+                  ),
+            SizedBox(
+              height: 3,
+            ),
+            Row(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  'Contact no :',
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                ),
+                SizedBox(width: 3),
+                Text(
+                  '${widget.profile.uno} ',
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                ),
+
+              ],
+                  ),
+],
             ),
           ),
-        )]),);
+        )),]));
   }
 }

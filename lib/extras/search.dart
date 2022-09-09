@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lostandfound/models/item.dart';
-import '../listview/itemprofile.dart';
 import '../listview/pt.dart';
-import 'flash.dart';
 import 'notfound.dart';
 
 
@@ -23,6 +21,8 @@ class _searchState extends State<search> {
   List<String> itemcat=[];
   List<String> uName= [];
   List<String> id=[];
+  List<String> roll=[];
+  List<String> uno=[];
   List<String> pid=[];
   int c=0;
   Widget build(BuildContext context) {
@@ -98,11 +98,11 @@ class _searchState extends State<search> {
          child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('product').snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              print("hello");
+              print("hello");print(interests.toString().trim());
               if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
               final documentSnapshotList = snapshot.data!.docs.where((element) => element['name']==interests.toString().trim());
-              documentSnapshotList.forEach((element) {itemcat.add(element['cat']);uName.add(element['uname']);p_url.add(element['url']);id.add(element['uid']);pid.add(element['pid']);itemName.add(element['name']);
-              itemdesc.add(element['desc']); });
+              documentSnapshotList.forEach((element) {itemcat.add(element['cat']);uName.add(element['uname']);roll.add(element['roll']);uno.add(element['uno']);p_url.add(element['url']);id.add(element['uid']);pid.add(element['pid']);itemName.add(element['name']);
+              itemdesc.add(element['desc']);print(3);print( element['name']); });
               c = documentSnapshotList.length;
               if (!snapshot.hasData) {
                 return Center(child: Text("snapshot has no data"));
@@ -112,7 +112,7 @@ class _searchState extends State<search> {
                   return Flash();
                 }
                 else{
-                  final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i], userid: id[i], username:uName[i], url: p_url[i], pid: pid[i],));
+                  final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i], userid: id[i], username:uName[i], url: p_url[i], pid: pid[i], uno: uno[i], roll: roll[i],));
                   return ListView.builder(
                     itemCount: profile.length,
                     itemBuilder: (context, index) {

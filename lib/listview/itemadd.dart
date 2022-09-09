@@ -11,7 +11,9 @@ class P_list extends StatefulWidget {
 
   String uid;
   String name;
-      P_list({required this.uid,required this.name});
+  String roll;
+  String no;
+      P_list({required this.uid,required this.name,required this.roll,required this.no});
   @override
   _P_listState createState() => _P_listState();
 }
@@ -39,24 +41,38 @@ class _P_listState extends State<P_list> {
       print("image is null");
     }
   }
+  Future<List<String>> avaiableDocuments() async{
+    List<String> ids = [];
+
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('product').get();
+    snapshot.docs.forEach((element) {
+      ids.add(element.id);
+    });
+
+    return ids;
+  }
   void getImage() async {
     String name = widget.name;
     String uid=widget.uid;
+    String roll=widget.roll;
+    String no=widget.no;
     ImagePicker picker = ImagePicker();
     final image = await picker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
     Reference ref = FirebaseStorage.instance.ref().child('${p_name}.jpg');
     await ref.putFile(File(image!.path));
-    ref.getDownloadURL().then((value){
+    ref.getDownloadURL().then((value) async {
       setState(() {
         url = value;
       });
 
-      final CollectionReference productCollection = FirebaseFirestore.instance.collection('product');
-      print("hello");  print(productCollection.id);
-       productCollection.add({
+
+      DocumentReference productCollection = FirebaseFirestore.instance.collection('product').doc();
+       productCollection.set({
+         'roll':roll,
+         'uno':no,
          'pid': productCollection.id,
-        'url': url,
+         'url': url,
          'uid':uid,
         'uname':name,
         'name': p_name,
@@ -64,7 +80,15 @@ class _P_listState extends State<P_list> {
         'desc': desc,
       });
       uploadPic();
-  });
+      List<String> ids = await avaiableDocuments();
+      for(int i=0;i<ids.length;i++) {
+        FirebaseFirestore.instance
+            .collection('product')
+            .doc(ids[i])
+            .update({'pid': ids[i]});
+      }
+
+    });
 
   }
 

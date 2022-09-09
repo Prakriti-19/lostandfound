@@ -9,5 +9,7 @@ class Profile_item{
   String userid;
   String url;
   String pid;
-  Profile_item({required this.p_name,required this.cat,required this.desc,required this.userid,required this.username,required this.url,required this.pid});
+  String roll;
+  String uno;
+  Profile_item({required this.p_name,required this.cat,required this.desc,required this.userid,required this.username,required this.url,required this.pid,required this.roll,required this.uno});
 }

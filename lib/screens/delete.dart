@@ -26,7 +26,8 @@ class _deleteState extends State<delete> {
     List<String> uName= [];
     List<String> uid=[];
     List<String> pid=[];
-    List<Color> color=[];
+    List<String> roll=[];
+    List<String> uno=[];
     String id=widget.id;
     c=0;
 
@@ -64,14 +65,14 @@ class _deleteState extends State<delete> {
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
             final documentSnapshotList = snapshot.data!.docs.where((element) => element['uid']==id.toString());
-            documentSnapshotList.forEach((element) {itemcat.add(element['cat'].toString());uName.add(element['uname']);uid.add(element['uid']);pid.add(element['pid']);p_url.add(element['url'].toString());itemName.add(element['name']);
+            documentSnapshotList.forEach((element) {itemcat.add(element['cat'].toString());uName.add(element['uname']);roll.add(element['roll']);uno.add(element['uno']);uid.add(element['uid']);pid.add(element['pid']);p_url.add(element['url'].toString());itemName.add(element['name']);
             itemdesc.add(element['desc']); });
             c = documentSnapshotList.length;
               if (c == 0) {
                 return Flash();
               }
               else{
-                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],pid: pid[i],));
+                final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],pid: pid[i], uno: uno[i], roll: roll[i],));
                 return ListView.builder(
                   itemCount: profile.length,
                   itemBuilder: (context, index) {

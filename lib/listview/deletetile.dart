@@ -70,7 +70,7 @@ class _deletetileState extends State< deletetile> {
                   child: RaisedButton(child:Text("Delete",style: TextStyle(color: Colors.white),),color: Color.fromRGBO(92, 104, 211, .5),onPressed: (){FirebaseFirestore.instance
         .collection('product')
         .doc(profile.pid)
-        .update({'color': Colors.grey});}),
+        .delete();}),
                 )
                 ],
               ),

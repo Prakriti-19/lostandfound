@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lostandfound/screens/userprofile.dart';
 import '../authenticate/auth.dart';
 import '../extras/search.dart';
-import '../screens/delete.dart';
-import 'itemadd.dart';
+import 'delete.dart';
+import '../listview/itemadd.dart';
 
 
 class mDrawer extends StatefulWidget {
@@ -30,6 +30,7 @@ class _mDrawerState extends State<mDrawer> {
   List<String> profileName= [];
   List<String> profilepno=[];
   List<String> profilroll=[];
+  List<String> email=[];
 
   int c = 0;
 
@@ -60,6 +61,15 @@ class _mDrawerState extends State<mDrawer> {
             (_currentUser.uid).toString()) {
           profilroll.add(profile.docs[index]['rollno']);
           print(profilroll[0]);
+        }
+      });
+    });
+    _usersStream.forEach((profile) {
+      profile.docs.asMap().forEach((index, data) {
+        if ((profile.docs[index]['uid']).toString() ==
+            (_currentUser.uid).toString()) {
+          email.add(profile.docs[index]['email']);
+          print(email[0]);
         }
       });
     });
@@ -102,7 +112,7 @@ class _mDrawerState extends State<mDrawer> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Userprof( name: profileName[0], rollno: profilroll[0].toString(), pno: profilepno[0],)),
+                        MaterialPageRoute(builder: (context) => Userprof( name: profileName[0], rollno: profilroll[0].toString(), pno: profilepno[0],email: email[0],)),
                       );
                     },
                   ),
@@ -121,7 +131,7 @@ class _mDrawerState extends State<mDrawer> {
                     ),
                     title: const Text('Add item'),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: _currentUser.uid)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: _currentUser.uid, no: profilepno[0],roll: profilroll[0],)));
                     },
                   ),
                   ListTile(
