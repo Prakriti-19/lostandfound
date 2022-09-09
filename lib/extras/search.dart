@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lostandfound/models/item.dart';
 import '../listview/pt.dart';
+import '../screens/searchscreen.dart';
 import 'notfound.dart';
 
 
@@ -15,15 +16,7 @@ class _searchState extends State<search> {
 
   @override
   String interests="";
-  List<String> itemName= [];
-  List<String> itemdesc=[];
-  List<String> p_url=[];
-  List<String> itemcat=[];
-  List<String> uName= [];
-  List<String> id=[];
-  List<String> roll=[];
-  List<String> uno=[];
-  List<String> pid=[];
+
   int c=0;
   Widget build(BuildContext context) {
     c=0;
@@ -73,10 +66,10 @@ class _searchState extends State<search> {
                       color: Color.fromRGBO(33, 57, 89, 1),
                     ),
                     onPressed: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Ss(inter: interests)));
                     },
                   ),
-                  fillColor: Colors.white12,
+                  fillColor:Color.fromRGBO(92, 104, 211, .3) ,
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -93,34 +86,7 @@ class _searchState extends State<search> {
               ),
             ),
           ),
-       Container(
-         height: 500,
-         child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('product').snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              print("hello");print(interests.toString().trim());
-              if(!snapshot.hasData){return Center(child: CircularProgressIndicator());}
-              final documentSnapshotList = snapshot.data!.docs.where((element) => element['name']==interests.toString().trim());
-              documentSnapshotList.forEach((element) {itemcat.add(element['cat']);uName.add(element['uname']);roll.add(element['roll']);uno.add(element['uno']);p_url.add(element['url']);id.add(element['uid']);pid.add(element['pid']);itemName.add(element['name']);
-              itemdesc.add(element['desc']);print(3);print( element['name']); });
-              c = documentSnapshotList.length;
-              if (!snapshot.hasData) {
-                return Center(child: Text("snapshot has no data"));
-              }
-              else {
-                if (c == 0) {
-                  return Flash();
-                }
-                else{
-                  final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i], userid: id[i], username:uName[i], url: p_url[i], pid: pid[i], uno: uno[i], roll: roll[i],));
-                  return ListView.builder(
-                    itemCount: profile.length,
-                    itemBuilder: (context, index) {
-                      return profiletile(profile: profile[index],ind:index);},
-                  );
-                }
-              }}),
-       ),
+
         ],
       ),
     );

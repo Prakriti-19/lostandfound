@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lostandfound/extras/mail.dart';
 import 'package:lostandfound/models/item.dart';
 
 class itempage extends StatefulWidget {

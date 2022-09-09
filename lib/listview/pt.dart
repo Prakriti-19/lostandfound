@@ -23,86 +23,90 @@ class _profiletileState extends State<profiletile> {
     else
       a=widget.profile.desc.substring(0,23)+'...';
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 7,vertical: 10),
-      child: Stack(children: <Widget>[
-        Material(
-          color: Color.fromRGBO(92, 104, 211, .5),
-          elevation: 12,
-          child: Card(
-            child: Container(
-              decoration: new BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(18))),
-              height: 240,
-              child: Column(
-                children: [
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Container(
-                        height: 150,
-                        width: 280,
-                        decoration: new BoxDecoration(
-                            image: DecorationImage(image:NetworkImage(profile.url))),)),
-                              SizedBox(
-                                width: 9,
-                              ),
-                              Text(
-                                ' ${widget.profile.p_name.toUpperCase()} ',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17,color: Colors.black),
-                              ),
-                              SizedBox(
-                                height: 0.5,
-                              ),
-            Row(
-              children: [
-                SizedBox(width: 10),
-                Container(
-                  width: 318,
-                  child: Text(
-                    '${widget.profile.desc} ',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,color: Colors.black54),
-                  ),
-                ),
-              ],
-            ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Text(
-                          'Roll no: ',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+        padding: EdgeInsets.symmetric(horizontal: 7,vertical: 10),
+        child: Stack(children: <Widget>[
+          Material(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+              color: Color.fromRGBO(92, 104, 211, .5),
+              elevation: 12,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Card(
+                  child: Container(
+                    decoration: new BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(18))),
+                    height: 240,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              height: 120,
+                              width: 200,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(18)),
+                                  image: DecorationImage(image:NetworkImage(profile.url),fit: BoxFit.fill)),)),
+                        SizedBox(
+                          width: 9,
                         ),
-                      SizedBox(width: 3),
                         Text(
-                          '${widget.profile.roll} ',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                          ' ${widget.profile.p_name.toUpperCase()} ',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17,color: Colors.black),
                         ),
+                        SizedBox(
+                          height: 0.5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Container(
+                              width: 300,
+                              child: Text(
+                                '${widget.profile.desc} ',
+                                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,color: Colors.black54),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Text(
+                              'Roll no: ',
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                            ),
+                            SizedBox(width: 3),
+                            Text(
+                              '${widget.profile.roll} ',
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                            ),
 
-                    ],
+                          ],
 
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Text(
+                              'Contact no :',
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                            ),
+                            SizedBox(width: 3),
+                            Text(
+                              '${widget.profile.uno} ',
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
+                            ),
+
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-            SizedBox(
-              height: 3,
-            ),
-            Row(
-              children: [
-                SizedBox(width: 10),
-                Text(
-                  'Contact no :',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
                 ),
-                SizedBox(width: 3),
-                Text(
-                  '${widget.profile.uno} ',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
-                ),
-
-              ],
-                  ),
-],
-            ),
-          ),
-        )),]));
+              )),]));
   }
 }
