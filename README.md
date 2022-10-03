@@ -16,7 +16,7 @@ User can see their profile and history
 
 After the settelment user can delete items he has enlisted 
 
-They can search for any particular item(work under progress)
+They can search for any particular item
 
 ## Screenshots
 ![Group 1](https://user-images.githubusercontent.com/111135506/189229172-e69bc28a-68d1-4ade-bfe0-b2c3cae89ddc.png)
