@@ -1,6 +1,5 @@
 # lostandfound
-
-A new Flutter project.
+An app to to ensure that lost items reach their owners without creating a havoc in the mailboxes of the entire college. This app acts as a portal solely dedicated to help you find your lost items.
 
 ## Features
 User Autherization- Register, SignIn
@@ -17,7 +16,7 @@ User can see their profile and history
 
 After the settelment user can delete items he has enlisted 
 
-They can search for any particular item(work under progress)
+They can search for any particular item
 
 ## Screenshots
 ![Group 1](https://user-images.githubusercontent.com/111135506/189229172-e69bc28a-68d1-4ade-bfe0-b2c3cae89ddc.png)
