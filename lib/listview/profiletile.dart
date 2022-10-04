@@ -100,7 +100,6 @@ class _profiletileState extends State<profiletile> {
                               '${widget.profile.uno} ',
                               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13,color: Colors.black87),
                             ),
-
                           ],
                         ),
                       ],

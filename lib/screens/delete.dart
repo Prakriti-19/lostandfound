@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../extras/flash.dart';
+import '../extras/empty.dart';
 import '../extras/notfound.dart';
 import '../listview/deletetile.dart';
 import '../models/item.dart';
@@ -69,7 +69,7 @@ class _deleteState extends State<delete> {
             itemdesc.add(element['desc']); });
             c = documentSnapshotList.length;
               if (c == 0) {
-                return Flash();
+                return Empty();
               }
               else{
                 final profile = List<Profile_item>.generate(c, (i) => Profile_item(p_name: itemName[i],cat:itemcat[i],desc: itemdesc[i],userid: uid[i], username:uName[i], url: p_url[i],pid: pid[i], uno: uno[i], roll: roll[i],));

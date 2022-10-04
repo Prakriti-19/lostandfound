@@ -15,12 +15,12 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
   String _currentName = '';
   String current_rollno = '';
   String pno= '';
-
-  final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
   String email = '';
   bool loading = false;
   String password = '';
@@ -52,7 +52,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                   hintText: 'Email'),
                               validator: (val) =>
-                              val!.isEmpty ? 'Email' : null,
+                              val!.isEmpty ? 'Please enter email' : null,
                               onChanged: (val) {
                                 setState(() => email = val);
                               },
@@ -62,7 +62,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                   hintText: 'Password'),
                               obscureText: true,
-                              validator: (value) => value!.length < 6
+                              validator: (val) => val!.length < 6
                                   ? 'Enter a password of 6 or more characters'
                                   : null,
                               onChanged: (val) {
@@ -74,7 +74,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                   hintText: 'Name'),
                               validator: (val) =>
-                              val!.isEmpty ? 'Name' : null,
+                              val!.isEmpty ? 'Please enter  Name' : null,
                               onChanged: (val) => setState(() => _currentName = val),
                             ),
                             SizedBox(height: 15.0),
@@ -83,7 +83,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                   hintText: 'Contact Number'),
                               validator: (val) =>
-                              val!.isEmpty ? 'Contact Number' : null,
+                              val!.isEmpty ? 'Please enter Contact Number' : null,
                               onChanged: (val) => setState(() => pno= val),
                             ),
                             SizedBox(height: 15.0),
@@ -92,7 +92,7 @@ class _RegisterState extends State<Register> {
                               decoration: InputDecoration(
                                   hintText: 'Roll Number'),
                               validator: (val) =>
-                              val!.isEmpty ? 'Roll Number' : null,
+                              val!.isEmpty ? 'Please enter Roll Number' : null,
                               onChanged: (val) => setState(() => current_rollno = val),
                             ),
                             SizedBox(height: 10.0),
@@ -117,11 +117,6 @@ class _RegisterState extends State<Register> {
                                           email, password, _currentName ,
                                         current_rollno,
                                         pno,);
-                                      await DatabaseService(uid: user!.uid).updateUserData(
-                                        _currentName ,
-                                        current_rollno,
-                                        pno,
-                                      );
                                       if (result == null) {
                                         setState(() {
                                           error = 'please supply a valid email';

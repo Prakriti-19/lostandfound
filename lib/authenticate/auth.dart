@@ -15,7 +15,6 @@ class AuthService {
     try{
       UserCredential result=await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user=result.user;
-      await DatabaseService(uid: user!.uid).updateUserData('newTeammate','----------','0000000000');
       return _userFormFirebaseUser(user);
     }
     catch(e){

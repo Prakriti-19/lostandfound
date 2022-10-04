@@ -12,6 +12,7 @@ void main() async {
     theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme()
     ),
+    debugShowCheckedModeBanner: false,
     home: SplashScreen(),
   ));
 }

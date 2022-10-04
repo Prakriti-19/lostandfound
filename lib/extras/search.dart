@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lostandfound/models/item.dart';
-import '../listview/pt.dart';
+import '../listview/profiletile.dart';
 import '../screens/searchscreen.dart';
 import 'notfound.dart';
 
@@ -17,7 +17,7 @@ class _searchState extends State<search> {
   @override
   String interests="";
 
-  int c=0;
+int c=0;
   Widget build(BuildContext context) {
     c=0;
 

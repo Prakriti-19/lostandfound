@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../extras/notfound.dart';
-import '../listview/pt.dart';
+import '../listview/profiletile.dart';
 import '../models/item.dart';
 
 class Ss extends StatefulWidget {
@@ -33,13 +33,12 @@ class _SsState extends State<Ss> {
       child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('product').snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            print("hello");
             print(interests.toString().trim());
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
             }
             final documentSnapshotList = snapshot.data!.docs.where((
-                element) => element['name'] == interests.toString().trim());
+                element) => element['name'].toString().toUpperCase().trim() == interests.toString().toUpperCase().trim());
             documentSnapshotList.forEach((element) {
               itemcat.add(element['cat']);
               uName.add(element['uname']);
@@ -50,10 +49,11 @@ class _SsState extends State<Ss> {
               pid.add(element['pid']);
               itemName.add(element['name']);
               itemdesc.add(element['desc']);
-              print(3);
+              print("hi");
               print(element['name']);
             });
             c = documentSnapshotList.length;
+            print(c);
             if (!snapshot.hasData) {
               return Center(child: Text("snapshot has no data"));
             }

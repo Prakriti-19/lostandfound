@@ -10,10 +10,10 @@ class wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<Usser?>(context);
     if(user==null){
-      return Register(); //not signed in->welcome->login/sign in
+      return Register();
     }
     else{
-      return HomeScreen();//call home screen
+      return HomeScreen();
     }
   }
 }

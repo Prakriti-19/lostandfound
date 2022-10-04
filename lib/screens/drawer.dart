@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lostandfound/screens/userprofile.dart';
+import 'package:lottie/lottie.dart';
 import '../authenticate/auth.dart';
 import '../extras/search.dart';
 import 'delete.dart';
 import '../listview/itemadd.dart';
-
 
 class mDrawer extends StatefulWidget {
   final User user;
@@ -18,7 +18,8 @@ class mDrawer extends StatefulWidget {
   State<mDrawer> createState() => _mDrawerState();
 }
 
-class _mDrawerState extends State<mDrawer> {
+class _mDrawerState extends State<mDrawer> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   late User _currentUser;
   final AuthService _auth = AuthService();
   @override
@@ -27,10 +28,10 @@ class _mDrawerState extends State<mDrawer> {
     super.initState();
   }
 
-  List<String> profileName= [];
-  List<String> profilepno=[];
-  List<String> profilroll=[];
-  List<String> email=[];
+  List<String> profileName = [];
+  List<String> profilepno = [];
+  List<String> profilroll = [];
+  List<String> email = [];
 
   int c = 0;
 
@@ -43,9 +44,8 @@ class _mDrawerState extends State<mDrawer> {
         .collection('profile')
         .doc(_currentUser.uid)
         .update({'email': _currentUser.email});
-    int c = 0;
     final Stream<QuerySnapshot> _usersStream =
-    FirebaseFirestore.instance.collection('profile').snapshots();
+        FirebaseFirestore.instance.collection('profile').snapshots();
     _usersStream.forEach((profile) {
       profile.docs.asMap().forEach((index, data) {
         if ((profile.docs[index]['uid']).toString() ==
@@ -91,72 +91,90 @@ class _mDrawerState extends State<mDrawer> {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
             }
-            return
-              ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('images/welcome.png'),
-                        fit: BoxFit.fill,
-                      ),
+            return ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("images/welcome.png"),
+                      fit: BoxFit.fill,
                     ),
-                    child: Text(''),
                   ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.account_circle_rounded,
-                    ),
-                    title: const Text('My Profile'),
-                    onTap: () {
-                      Navigator.push(
+                  child: Text(''),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.account_circle_rounded,
+                  ),
+                  title: const Text('My Profile'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Userprof(
+                                name: profileName[0],
+                                rollno: profilroll[0].toString(),
+                                pno: profilepno[0],
+                                email: email[0],
+                              )),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.history,
+                  ),
+                  title: const Text('History'),
+                  onTap: () {
+                    Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Userprof( name: profileName[0], rollno: profilroll[0].toString(), pno: profilepno[0],email: email[0],)),
-                      );
-                    },
+                        MaterialPageRoute(
+                            builder: (context) => delete(
+                                  id: _currentUser.uid,
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.add_circle_rounded,
                   ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.history,
-                    ),
-                    title: const Text('History'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => delete(id: _currentUser.uid,)));
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.add_circle_rounded,
-                    ),
-                    title: const Text('Add item'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => P_list( name: profileName[0], uid: _currentUser.uid, no: profilepno[0],roll: profilroll[0],)));
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.search,
-                    ),
-                    title: const Text('Search'),
-                    onTap: () {
-                      Navigator.push(
+                  title: const Text('Add item'),
+                  onTap: () {
+                    Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => search()),
-                      );
-                    },
+                        MaterialPageRoute(
+                            builder: (context) => P_list(
+                                  name: profileName[0],
+                                  uid: _currentUser.uid,
+                                  no: profilepno[0],
+                                  roll: profilroll[0],
+                                )));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.search,
                   ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.logout,
-                    ),
-                    title: const Text('Logout'),
-                    onTap: () async  {
-                      await _auth.signOut();
-                    },
+                  title: const Text('Search'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => search()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
                   ),
-                ],
-              );
+                  title: const Text('Logout'),
+                  onTap: () async {
+                    await _auth.signOut();
+                  },
+                ),
+              ],
+            );
             //}
             // }
           }),
